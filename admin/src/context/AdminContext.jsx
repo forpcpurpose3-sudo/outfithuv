@@ -3,39 +3,42 @@ import { authDataContext } from './AuthContext'
 import axios from 'axios'
 
 export const adminDataContext = createContext()
+
 function AdminContext({children}) {
-    let [adminData,setAdminData] = useState(null)
+    let [adminData, setAdminData] = useState(null)
     let {serverUrl} = useContext(authDataContext)
-
-
+    
     const getAdmin = async () => {
       try {
-           let result = await axios.get(serverUrl + "/api/user/getadmin",{withCredentials:true})
-
-      setAdminData(result.data)
-      console.log(result.data)
+        let result = await axios.get(serverUrl + "/api/user/getadmin", {withCredentials:true})
+        setAdminData(result.data)
+        console.log("Admin data fetched:", result.data)
+        return result.data
       } catch (error) {
         setAdminData(null)
-        console.log(error)
+        console.log("Error fetching admin:", error)
+        return null
       }
     }
-
-    useEffect(()=>{
-     getAdmin()
-    },[])
-
-
+    
+    useEffect(() => {
+      // Check if admin is already logged in on page load
+      getAdmin()
+    }, [])
+    
     let value = {
-adminData,setAdminData,getAdmin
+      adminData,
+      setAdminData,
+      getAdmin
     }
-  return (
-    <div>
-<adminDataContext.Provider value={value}>
-    {children}
-</adminDataContext.Provider>
-      
-    </div>
-  )
+    
+    return (
+      <div>
+        <adminDataContext.Provider value={value}>
+          {children}
+        </adminDataContext.Provider>
+      </div>
+    )
 }
 
 export default AdminContext
