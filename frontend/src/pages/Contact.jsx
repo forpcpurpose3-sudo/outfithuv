@@ -1,33 +1,60 @@
 import React from 'react'
-import Title from '../component/Title'
 import contact from "../assets/contact.jpg"
-import NewLetterBox from '../component/NewLetterBox'
+import Footer from '../component/Footer'
 
 function Contact() {
   return (
-    <div className='w-[99vw] min-h-[100vh] flex items-center justify-center flex-col  bg-gradient-to-l from-[#141414] to-[#0c2025] gap-[50px] pt-[80px]'>
-      <Title  text1={'CONTACT'} text2={'US'}/>
-      <div className='w-[100%]  flex items-center justify-center flex-col lg:flex-row'>
-        <div className='lg:w-[50%] w-[100%] flex items-center justify-center '>
-          <img src={contact} alt=""  className='lg:w-[70%] w-[80%] shadow-md shadow-black rounded-sm'/>
-        </div>
-        <div className='lg:w-[50%] w-[80%] flex items-start justify-center gap-[20px]  flex-col mt-[20px] lg:mt-[0px]'>
-        <p className='lg:w-[80%] w-[100%] text-[white] font-bold lg:text-[18px] text-[15px]'>Our Store</p>
-        <p className='lg:w-[80%] w-[100%] text-[white] md:text-[16px] text-[13px]'>
-          <p>12345 Random Statiom</p>
-          <p>random city , state , India</p>
-        </p>
-        <p className='lg:w-[80%] w-[100%] text-[white] md:text-[16px] text-[13px]'>
-          <p>tel: +91-9876543210</p>
-          <p>Email: admin@onecart.com</p>
-        </p>
-        <p className='lg:w-[80%] w-[100%] text-[15px] text-[white] lg:text-[18px] mt-[10px] font-bold'>Careers at OneCart</p>
-        <p className='lg:w-[80%] w-[100%] text-[white] md:text-[16px] text-[13px]'>Learn more about our teams and job openings</p>
-        <button className='px-[30px] py-[20px] flex items-center justify-center text-[white] bg-transparent border active:bg-slate-600 rounded-md' >Explore Jobs</button>
+    <div className='w-full min-h-screen bg-white'>
+      <div className='pt-24 pb-16 px-4 md:px-8'>
+        <div className='max-w-7xl mx-auto'>
+          {/* Header */}
+          <div className='text-center mb-16'>
+            <h1 className='text-5xl md:text-7xl font-black text-gray-900 mb-4 tracking-tight'>
+              Contact Us
+            </h1>
+            <p className='text-xl text-gray-600 font-light'>Get in touch with our team</p>
+          </div>
+
+          {/* Main Section */}
+          <div className='grid lg:grid-cols-2 gap-12 items-start mb-20'>
+            {/* Image */}
+            <div className='relative'>
+              <div className='absolute inset-0 bg-gradient-to-br from-blue-200 to-purple-200 rounded-3xl blur-2xl opacity-50' />
+              <img 
+                src={contact} 
+                alt="Contact TheOutfitHuv" 
+                className='relative rounded-3xl shadow-2xl w-full h-full object-cover'
+              />
+            </div>
+
+            {/* Contact Info */}
+            <div className='space-y-8'>
+              {/* Our Store */}
+              <div className='bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl p-8'>
+                <h2 className='text-3xl font-bold text-gray-900 mb-4'>Our Store</h2>
+                <div className='text-gray-700 text-lg leading-relaxed font-light space-y-1'>
+                  <p>Raja bazar near Pillar no 56</p>
+                  <p>Patna 800025</p>
+                </div>
+              </div>
+
+              {/* Contact Details */}
+              <div className='bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl p-8'>
+                <h2 className='text-3xl font-bold text-gray-900 mb-4'>Get In Touch</h2>
+                <div className='space-y-3'>
+                  <p className='text-gray-700 text-lg font-light'>
+                    <span className='font-semibold'>Phone:</span> +91-7903184915
+                  </p>
+                  <p className='text-gray-700 text-lg font-light'>
+                    <span className='font-semibold'>Email:</span> subodh282516@gmail.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <NewLetterBox/>
-      
+      <Footer />
     </div>
   )
 }

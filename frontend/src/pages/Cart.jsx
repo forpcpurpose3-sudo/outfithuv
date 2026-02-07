@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Title from '../component/Title'
 import { shopDataContext } from '../context/ShopContext'
 import { useNavigate } from 'react-router-dom'
-import { RiDeleteBin6Line } from "react-icons/ri";
 import CartTotal from '../component/CartTotal';
 
 function Cart() {
@@ -28,54 +26,101 @@ function Cart() {
 
   }, [cartItem]);
   return (
-    <div className='w-[99vw] min-h-[100vh] p-[20px] overflow-hidden bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-      <div className='h-[8%] w-[100%] text-center mt-[80px]'>
-        <Title text1={'YOUR'} text2={'CART'} />
-      </div>
-
-      <div className='w-[100%] h-[92%] flex flex-wrap gap-[20px]'>
-        {
-         cartData.map((item,index)=>{
-             const productData = products.find((product) => product._id === item._id);
-            
-             return (
-              <div key={index} className='w-[100%] h-[10%] border-t border-b  '>
-                <div className='w-[100%] h-[80%] flex items-start gap-6 bg-[#51808048]  py-[10px] px-[20px] rounded-2xl relative '>
-                    <img className='w-[100px] h-[100px] rounded-md ' src={productData.image1} alt="" />
-                    <div className='flex items-start justify-center flex-col gap-[10px]'>
-                    <p className='md:text-[25px] text-[20px] text-[#f3f9fc]'>{productData.name}</p>
-                    <div className='flex items-center   gap-[20px]'>
-                      <p className='text-[20px] text-[#aaf4e7]'>{currency} {productData.price}</p>
-                      <p className='w-[40px] h-[40px] text-[16px] text-[white] 
-                      bg-[#518080b4] rounded-md mt-[5px] flex items-center justify-center border-[1px] border-[#9ff9f9]'>{item.size}</p>
-                </div>
-                </div>
-                <input type="number" min={1} defaultValue={item.quantity} className=' md:max-w-20 max-w-10 md:px-2 md:py-2 py-[5px] px-[10px] text-[white] text-[18px] font-semibold bg-[#518080b4] absolute md:top-[40%] top-[46%] left-[75%] md:left-[50%] border-[1px] border-[#9ff9f9] rounded-md '  onChange={(e)=> (e.target.value === ' ' || e.target.value === '0') ? null  :  updateQuantity(item._id,item.size,Number(e.target.value))} />
-
-                <RiDeleteBin6Line  className='text-[#9ff9f9] w-[25px] h-[25px] absolute top-[50%] md:top-[40%] md:right-[5%] right-1' onClick={()=>updateQuantity(item._id,item.size,0)}/>
-                </div>
- 
-              </div>
-             )
-         })
-        }
-      </div>
-
-      <div className='flex justify-start items-end my-20'>
-        <div className='w-full sm:w-[450px]'>
-            <CartTotal/>
-            <button className='text-[18px] hover:bg-slate-500 cursor-pointer bg-[#51808048] py-[10px] px-[50px] rounded-2xl text-white flex items-center justify-center gap-[20px]  border-[1px] border-[#80808049] ml-[30px] mt-[20px]' onClick={()=>{
-                if (cartData.length > 0) {
-      navigate("/placeorder");
-    } else {
-      console.log("Your cart is empty!");
-    }
-            }}>
-                PROCEED TO CHECKOUT
-            </button>
+    <div className='w-full min-h-screen bg-gradient-to-br from-white via-gray-50 to-white pt-24 pb-20 px-4 md:px-8'>
+      <div className='max-w-7xl mx-auto'>
+        {/* Header */}
+        <div className='text-center mb-16'>
+          <h1 className='text-5xl md:text-7xl font-black text-gray-900 mb-4 tracking-tight'>
+            Your Cart
+          </h1>
+          <p className='text-xl text-gray-600 font-light'>Review and modify your items</p>
         </div>
+
+        {/* Cart Items */}
+        <div className='space-y-4 mb-12'>
+          {cartData.length === 0 ? (
+            <div className='text-center py-16'>
+              <p className='text-2xl text-gray-700 font-light'>Your cart is empty</p>
+              <button 
+                onClick={() => navigate("/collection")}
+                className='mt-6 px-8 py-3 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-all'
+              >
+                Continue Shopping
+              </button>
+            </div>
+          ) : (
+            cartData.map((item, index) => {
+              const productData = products.find((product) => product._id === item._id);
+              return (
+                <div 
+                  key={index} 
+                  className='bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300'
+                >
+                  <div className='flex gap-6 items-start'>
+                    <img 
+                      src={productData.image1} 
+                      alt={productData.name}
+                      className='w-32 h-32 rounded-xl object-cover shadow-lg' 
+                    />
+                    <div className='flex-1'>
+                      <h3 className='text-2xl font-bold text-gray-900 mb-3'>{productData.name}</h3>
+                      <div className='flex flex-wrap items-center gap-6'>
+                        <div>
+                          <p className='text-gray-600 text-sm mb-1'>Price</p>
+                          <p className='text-2xl font-bold text-gray-900'>{currency} {productData.price}</p>
+                        </div>
+                        <div>
+                          <p className='text-gray-600 text-sm mb-1'>Size</p>
+                          <span className='inline-block px-4 py-2 bg-gray-200 rounded-lg font-semibold text-gray-900'>{item.size}</span>
+                        </div>
+                        <div>
+                          <p className='text-gray-600 text-sm mb-1'>Quantity</p>
+                          <input 
+                            type="number" 
+                            min={1} 
+                            defaultValue={item.quantity} 
+                            className='w-20 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                            onChange={(e) => (e.target.value === ' ' || e.target.value === '0') ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => updateQuantity(item._id, item.size, 0)}
+                      className='p-3 hover:bg-red-100 rounded-lg transition-colors'
+                    >
+                      <span className='text-2xl'>🗑️</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Cart Summary */}
+        {cartData.length > 0 && (
+          <div className='flex flex-col lg:flex-row gap-8 justify-end items-start'>
+            <div className='w-full lg:w-96'>
+              <div className='bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl p-8 sticky top-24'>
+                <CartTotal/>
+                <button 
+                  onClick={() => {
+                    if (cartData.length > 0) {
+                      navigate("/placeorder");
+                    } else {
+                      console.log("Your cart is empty!");
+                    }
+                  }}
+                  className='w-full mt-6 px-8 py-4 bg-black text-white rounded-full font-semibold text-lg hover:bg-gray-800 transition-all duration-300 hover:shadow-2xl'
+                >
+                  PROCEED TO CHECKOUT
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      
     </div>
   )
 }

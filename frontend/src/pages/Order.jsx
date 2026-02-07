@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Title from '../component/Title'
 import { shopDataContext } from '../context/ShopContext'
 import { authDataContext } from '../context/authContext'
 import axios from 'axios'
@@ -36,46 +35,90 @@ useEffect(()=>{
 
 
   return (
-    <div className='w-[99vw] min-h-[100vh] p-[20px] pb-[150px]  overflow-hidden bg-gradient-to-l from-[#141414] to-[#0c2025] '>
-      <div className='h-[8%] w-[100%] text-center mt-[80px]'>
-        <Title text1={'MY'} text2={'ORDER'} />
-      </div>
-      <div className=' w-[100%] h-[92%] flex flex-wrap gap-[20px]'>
-        {
-         orderData.map((item,index)=>(
-            <div key={index} className='w-[100%] h-[10%] border-t border-b '>
-                <div className='w-[100%] h-[80%] flex items-start gap-6 bg-[#51808048]  py-[10px] px-[20px] rounded-2xl relative '>
-                    <img src={item.image1} alt="" className='w-[130px] h-[130px] rounded-md '/>
-                    <div className='flex items-start justify-center flex-col gap-[5px]'>
-                    <p className='md:text-[25px] text-[20px] text-[#f3f9fc]'>{item.name}</p>
-                    <div className='flex items-center gap-[8px]   md:gap-[20px]'>
-                        <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>{currency} {item.price}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Quantity: {item.quantity}</p>
-                      <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Size: {item.size}</p>
-                    </div>
-                    <div className='flex items-center'>
-                     <p className='md:text-[18px] text-[12px] text-[#aaf4e7]'>Date: <span className='text-[#e4fbff] pl-[10px] md:text-[16px] text-[11px]'>{new Date(item.date).toDateString()}</span></p>
-                    </div>
-                    <div className='flex items-center'>
-                      <p className='md:text-[16px] text-[12px] text-[#aaf4e7]'>Payment Method :{item.paymentMethod}</p>
-                    </div>
-                    <div className='absolute md:left-[55%] md:top-[40%] right-[2%] top-[2%]  '>
-                        <div className='flex items-center gap-[5px]'>
-                      <p className='min-w-2 h-2 rounded-full bg-green-500'></p> 
-                      <p className='md:text-[17px] text-[10px] text-[#f3f9fc]'>{item.status}</p>
+    <div className='w-full min-h-screen bg-gradient-to-br from-white via-gray-50 to-white pt-24 pb-20 px-4 md:px-8'>
+      <div className='max-w-7xl mx-auto'>
+        {/* Header */}
+        <div className='text-center mb-16'>
+          <h1 className='text-5xl md:text-7xl font-black text-gray-900 mb-4 tracking-tight'>
+            Your Orders
+          </h1>
+          <p className='text-xl text-gray-600 font-light'>Track and manage your purchases</p>
+        </div>
 
-                    </div>
-
-                    </div>
-                     <div className='absolute md:right-[5%] right-[1%] md:top-[40%] top-[70%]'> 
-                    <button className='md:px-[15px] px-[5px] py-[3px] md:py-[7px] rounded-md bg-[#101919] text-[#f3f9fc] text-[12px] md:text-[16px] cursor-pointe active:bg-slate-500' onClick={loadOrderData} >Track Order</button>
-                  </div>
-                    </div>
-                </div>
-               
+        {/* Orders List */}
+        <div className='space-y-6'>
+          {orderData.length === 0 ? (
+            <div className='text-center py-16 bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl'>
+              <p className='text-2xl text-gray-700 font-light mb-4'>No orders yet</p>
+              <button 
+                onClick={() => navigate("/collection")}
+                className='px-8 py-3 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-all'
+              >
+                Start Shopping
+              </button>
             </div>
-         ))
-        }
+          ) : (
+            orderData.map((item, index) => (
+              <div 
+                key={index} 
+                className='bg-white/50 backdrop-blur-xl border border-gray-200 rounded-2xl p-6 hover:shadow-xl transition-all duration-300'
+              >
+                <div className='flex gap-6 items-start flex-col md:flex-row'>
+                  {/* Product Image */}
+                  <img 
+                    src={item.image1} 
+                    alt={item.name}
+                    className='w-32 h-32 rounded-xl object-cover shadow-lg' 
+                  />
+
+                  {/* Product Details */}
+                  <div className='flex-1'>
+                    <h3 className='text-2xl font-bold text-gray-900 mb-4'>{item.name}</h3>
+                    
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-6 mb-4'>
+                      <div>
+                        <p className='text-gray-600 text-sm mb-1 font-light'>Price</p>
+                        <p className='text-xl font-bold text-gray-900'>{currency}{item.price}</p>
+                      </div>
+                      <div>
+                        <p className='text-gray-600 text-sm mb-1 font-light'>Quantity</p>
+                        <p className='text-xl font-bold text-gray-900'>{item.quantity}</p>
+                      </div>
+                      <div>
+                        <p className='text-gray-600 text-sm mb-1 font-light'>Size</p>
+                        <p className='text-xl font-bold text-gray-900'>{item.size}</p>
+                      </div>
+                      <div>
+                        <p className='text-gray-600 text-sm mb-1 font-light'>Payment</p>
+                        <p className='text-xl font-bold text-gray-900'>{item.paymentMethod}</p>
+                      </div>
+                    </div>
+
+                    {/* Order Status */}
+                    <div className='flex flex-wrap items-center gap-6'>\n                      <div className='flex items-center gap-2'>
+                        <span className='w-2 h-2 rounded-full bg-green-500'></span>
+                        <p className='text-lg font-semibold text-gray-900'>{item.status}</p>
+                      </div>
+                      <p className='text-gray-700 font-light'>
+                        Ordered on: <span className='font-semibold'>{new Date(item.date).toDateString()}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Track Button */}
+                  <div className='md:ml-auto'>
+                    <button 
+                      onClick={loadOrderData}
+                      className='px-6 py-3 bg-black text-white rounded-full font-semibold hover:bg-gray-800 transition-all duration-300'
+                    >
+                      Track Order
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   )

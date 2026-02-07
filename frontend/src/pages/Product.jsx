@@ -4,15 +4,20 @@ import BestSeller from '../component/BestSeller'
 
 function Product() {
   return (
-    <div className='w-[100vw] min-h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-center justify-start flex-col py-[20px]'>
+    <div className='w-full min-h-screen bg-gradient-to-br from-white via-gray-50 to-white'>
+      {/* Latest Collection Section */}
+      <section className='py-16 md:py-24 px-4 md:px-8'>
+        <div className='max-w-7xl mx-auto'>
+          <LatestCollection/>
+        </div>
+      </section>
 
-        <div className='w-[100%] min-h-[70px] flex items-center justify-center gap-[10px]  flex-col '>
-            <LatestCollection/>
+      {/* Best Sellers Section */}
+      <section className='py-16 md:py-24 px-4 md:px-8 bg-gray-50'>
+        <div className='max-w-7xl mx-auto'>
+          <BestSeller/>
         </div>
-        <div className='w-[100%] min-h-[70px] flex items-center justify-center gap-[10px]  flex-col '>
-            <BestSeller/>
-        </div>
-      
+      </section>
     </div>
   )
 }

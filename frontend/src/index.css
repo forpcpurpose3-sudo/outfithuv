@@ -1,1 +1,118 @@
 @import "tailwindcss";
+
+/* Global Styles with Apple Theme */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+	from { opacity: 0; transform: translateY(12px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pop {
+	0% { transform: scale(0.96); opacity: 0; }
+	60% { transform: scale(1.02); opacity: 1; }
+	100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+	from { opacity: 0; transform: translateX(20px); }
+	to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blur-in {
+	from { 
+		opacity: 0;
+		filter: blur(10px);
+	}
+	to { 
+		opacity: 1;
+		filter: blur(0);
+	}
+}
+
+.animate-fadeInUp {
+	animation: fadeInUp 480ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+.animate-pop {
+	animation: pop 420ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+.animate-slideInRight {
+	animation: slideInFromRight 500ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+.animate-blurIn {
+	animation: blur-in 600ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+/* Glassmorphism Effects */
+.glass-effect {
+	background: rgba(255, 255, 255, 0.7);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+	background: rgba(17, 17, 17, 0.7);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth Transitions */
+button, input, select, textarea {
+	transition: all 300ms cubic-bezier(.2,.9,.2,1);
+}
+
+button:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+button:active {
+	transform: translateY(0);
+}
+
+/* Focus States */
+input:focus, textarea:focus, select:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.transition-smooth {
+	transition: all 300ms ease-in-out;
+}
