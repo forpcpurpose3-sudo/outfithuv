@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import Logo from "../assets/logo.png";
 import Loading from "../component/Loading";
-import { authDataContext } from "../context/authContext";
+import { authDataContext } from "../context/AuthContext";
 import { userDataContext } from "../context/UserContext";
 
 function Registration() {
