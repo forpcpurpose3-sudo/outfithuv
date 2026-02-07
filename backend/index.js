@@ -17,7 +17,7 @@ let app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
- origin:["https://theoutfithuv.in" , "http://localhost:5174"],
+ origin:["https://theoutfithuv.in" , "https://outfithuv-admin.onrender.com"],
  credentials:true
 }))
 
